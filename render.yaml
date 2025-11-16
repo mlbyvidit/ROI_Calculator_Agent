@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: roi-calculator-backend
+    env: docker
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /docs
