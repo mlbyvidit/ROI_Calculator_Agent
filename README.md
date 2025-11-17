@@ -52,6 +52,48 @@ curl -s -X POST 'http://localhost:8000/roi/report' \
 - Run: `docker run -p 8000:8000 roi-backend:latest`
 - Test: `http://localhost:8000/docs`
 
+## Chatbot (Mistral + /chat)
+- Adds a conversational assistant that gathers ROI inputs and, when confirmed, computes ROI and returns a downloadable PDF.
+- Frontend served at `/` provides a chat UI and a “Download ROI PDF” button when the PDF is ready.
+
+### Setup API Key
+- Create a `.env` file in the project root with:
+  - `MISTRAL_API_KEY=<your_real_mistral_key>`
+- The app automatically loads `.env` via `python-dotenv`.
+
+### Run Locally
+- With venv:
+  - `python3 -m venv .venv && source .venv/bin/activate`
+  - `pip install -r requirements.txt`
+  - `uvicorn app.main:app --reload --port 8000`
+- Open chat UI: `http://localhost:8000/`
+
+### Run in Docker
+- Ensure `.env` exists with your key.
+- `docker build -t roi-backend:latest .`
+- `docker run --rm -d --env-file .env -p 8000:8000 roi-backend:latest`
+- Open chat UI: `http://localhost:8000/`
+
+### /chat API Example
+```
+curl -s -X POST 'http://localhost:8000/chat' \
+  -H 'Content-Type: application/json' \
+  -d '{ "messages": [ { "role": "user", "content": "We are Acme in Manufacturing. Revenue 100M, COGS 60%, Logistics 8%, Exceptions 2%, Planners 10." } ] }' \
+| python3 -m json.tool
+```
+- The assistant asks follow-ups for missing values.
+- Once confirmed, the response includes `metrics`, `pdf_base64`, and `filename`.
+
+### Troubleshooting
+- Missing key message: add `MISTRAL_API_KEY` to `.env` and restart the server/container.
+- Rate limit or capacity: change `MODEL_NAME` in `app/llm_client.py` (e.g., `mistral-tiny`, `mistral-small-latest`).
+- Port conflicts: stop any process using `8000`.
+
+### Deploy to Render
+- Connect the GitHub repo and create a service from `render.yaml`.
+- In the service, add Environment Variable `MISTRAL_API_KEY` with your real key.
+- Open the Render URL for the chat UI and docs.
+
 ## What It Does
 - Computes derived metrics (COGS, logistics/exception cost, inventory value).
 - Calculates recurring EBIT savings, cost avoidance, and one-time cash benefits.
