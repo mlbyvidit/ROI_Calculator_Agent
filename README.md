@@ -1,7 +1,7 @@
 # ROI Calculator Backend
 
 ## Overview
-- Python + FastAPI backend that replicates Excel-style ROI calculations in pure Python.
+- Python + FastAPI backend that calculates ROI in pure Python.
 - Accepts structured JSON and returns ROI metrics plus a base64 PDF report.
 - Endpoints: `POST /roi`, `POST /roi/report`.
 
