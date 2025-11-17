@@ -52,6 +52,10 @@ curl -s -X POST 'http://localhost:8000/roi/report' \
 - Run: `docker run -p 8000:8000 roi-backend:latest`
 - Test: `http://localhost:8000/docs`
 
+## Live Service
+- Chat UI: https://roi-calculator-agent.onrender.com/
+- API docs: https://roi-calculator-agent.onrender.com/docs
+
 ## Chatbot (Mistral + /chat)
 - Adds a conversational assistant that gathers ROI inputs and, when confirmed, computes ROI and returns a downloadable PDF.
 - Frontend served at `/` provides a chat UI and a “Download ROI PDF” button when the PDF is ready.
