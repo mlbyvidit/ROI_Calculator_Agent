@@ -1,9 +1,17 @@
-# ROI Calculator Backend
+# ROI Calculator AI Agent
 
-## Overview
-- Python + FastAPI backend that calculates ROI in pure Python.
-- Accepts structured JSON and returns ROI metrics plus a base64 PDF report.
-- Endpoints: `POST /roi`, `POST /roi/report`.
+A full-stack AI-powered ROI (Return on Investment) calculator that combines:
+
+- **FastAPI backend** for pure-Python ROI computation  
+- **Mistral Small (Open-Source) LLM** for natural-language conversations  
+- **AI Agent** that collects business inputs, asks clarifying questions, and triggers the ROI engine  
+- **PDF report generation** with charts  
+- **Chat-based frontend UI** served directly from the backend  
+- **Docker support** for easy deployment  
+- **Live Render deployment support**  
+
+This system transforms unstructured business queries into fully calculated ROI metrics and a downloadable PDF report.
+
 
 ## Run Locally (Python)
 - Create a venv and install deps:
